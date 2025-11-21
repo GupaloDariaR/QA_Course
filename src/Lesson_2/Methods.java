@@ -70,4 +70,18 @@ public class Methods {
             System.out.println("a < b");
         }
     }
+
+    public static boolean isSumInRange (int a, int b) {
+/*
+    метод проверяет, что сумма чисел лежит
+    в пределах от 10 до 20 (включительно),
+    если да – вернуть true, в противном случае – false.
+*/
+        int summValue = a + b;
+        if (summValue >= 10 && summValue <= 20) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
