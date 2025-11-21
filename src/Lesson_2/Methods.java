@@ -45,10 +45,29 @@ public class Methods {
 
         if (value <= 0) {
             System.out.println("Красный");
-        } else if (value > 0 && value <= 100) {
+        } else if (value <= 100) {
             System.out.println("Желтый");
         } else {
             System.out.println("Зеленый");
+        }
+    }
+
+    public static void compareNumbers() {
+/*
+    Если a больше или равно b,
+    то в консоль выводится сообщение “a >= b”,
+    в противном случае “a < b”
+ */
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите целое число: ");
+        int a = scanner.nextInt();
+        System.out.println("Введите целое число: ");
+        int b = scanner.nextInt();
+
+        if (a >= b) {
+            System.out.println("a >= b");
+        } else {
+            System.out.println("a < b");
         }
     }
 }
