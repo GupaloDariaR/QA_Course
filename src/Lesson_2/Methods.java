@@ -78,10 +78,6 @@ public class Methods {
     если да – вернуть true, в противном случае – false.
 */
         int summValue = a + b;
-        if (summValue >= 10 && summValue <= 20) {
-            return true;
-        } else {
-            return false;
-        }
+        return summValue >= 10 && summValue <= 20;
     }
 }
