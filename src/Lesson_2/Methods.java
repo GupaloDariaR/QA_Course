@@ -104,10 +104,21 @@ public class Methods {
     public static boolean numberSign(int number) {
 /*
     Задание 7
-    Метод должен вернуть true, если число отрицательное,
-    и вернуть false если положительное.
+    Метод возвращает true, если число отрицательное,
+    и false если положительное.
     Замечание: ноль считаем положительным числом.
  */
         return number < 0;
+    }
+
+    public static void printString(String str, int count) {
+/*
+    Задание 8
+    Метод выводит в консоль указанную строку,
+    указанное количество раз
+ */
+        for (int i = 0; i < count; i++) {
+            System.out.println(str);
+        }
     }
 }
