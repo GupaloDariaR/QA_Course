@@ -1,5 +1,6 @@
 package Lesson_2;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Methods {
@@ -139,4 +140,21 @@ public class Methods {
             return false;
         }
     }
+
+    public static int[] inversion(int[] array) {
+/*
+    Задание 10
+    Метод применяет инверсию к массиву, состоящему из элементов 0 и 1.
+ */
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == 1) {
+                array[i] = 0;
+            } else {
+                array[i] = 1;
+            }
+        }
+        return array;
+    }
+
+
 }
