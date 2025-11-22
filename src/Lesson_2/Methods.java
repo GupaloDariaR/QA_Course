@@ -168,4 +168,18 @@ public class Methods {
         }
         System.out.println(Arrays.toString(array));
     }
+
+    public static void twiceArrayValues() {
+/*
+    Задание 12
+    Метод умножает на 2 значения массива меньшие 6
+ */
+        int[] array = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] < 6) {
+                array[i] *= 2;
+            }
+        }
+        System.out.println(Arrays.toString(array));
+    }
 }
