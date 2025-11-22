@@ -182,4 +182,22 @@ public class Methods {
         }
         System.out.println(Arrays.toString(array));
     }
+
+    public static void fillDiagonals(int length) {
+/*
+    Метод создает квадратный двумерный целочисленный массив
+    и с помощью цикла(-ов) заполняет его
+    диагональные элементы единицами
+ */
+        int[][] array = new int[length][length];
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                if ((i == j) || (i == length - 1 - j)) {
+                    array[i][j] = 1;
+                }
+                System.out.print(array[i][j] + "  ");
+            }
+            System.out.println();
+        }
+    }
 }
