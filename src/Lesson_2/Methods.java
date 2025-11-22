@@ -185,6 +185,7 @@ public class Methods {
 
     public static void fillDiagonals(int length) {
 /*
+    Задание 13
     Метод создает квадратный двумерный целочисленный массив
     и с помощью цикла(-ов) заполняет его
     диагональные элементы единицами
@@ -199,5 +200,16 @@ public class Methods {
             }
             System.out.println();
         }
+    }
+
+    public static int[] createArray(int len, int initialValue) {
+/*
+    Задание 14
+    Метод возвращает одномерный массив типа int длиной len,
+    каждая ячейка которого равна initialValue
+ */
+        int[] array = new int[len];
+        Arrays.fill(array, initialValue);
+        return array;
     }
 }
