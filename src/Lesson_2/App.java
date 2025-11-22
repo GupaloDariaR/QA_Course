@@ -22,6 +22,7 @@ public class App {
 //        System.out.println(isLeapYear(2024));
 //        System.out.println(isLeapYear(2000));
 //        System.out.println(isLeapYear(1900));
-        System.out.println(Arrays.toString(inversion(new int[] {1, 1, 1, 1, 1, 0, 0, 0, 0, 0})));
+//        System.out.println(Arrays.toString(inversion(new int[] {1, 1, 1, 1, 1, 0, 0, 0, 0, 0})));
+        fillArray();
     }
 }

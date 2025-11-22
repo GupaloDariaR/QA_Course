@@ -156,5 +156,16 @@ public class Methods {
         return array;
     }
 
-
+    public static void fillArray() {
+/*
+    Задание 11
+    Метод с помощью цикла заполняет массив длиной 100
+    значениями 1 2 3 4 5 6 7 8 ... 100;
+ */
+        int[] array = new int[100];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = i +1;
+        }
+        System.out.println(Arrays.toString(array));
+    }
 }
