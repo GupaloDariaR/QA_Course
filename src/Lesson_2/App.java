@@ -8,7 +8,7 @@ public class App {
 //        checkSumSign();
 //        printColor();
 //        compareNumbers();
-        System.out.println(isSumInRange(5, 5));
-
+//        System.out.println(isSumInRange(5, 5));
+        printNumberSign(0);
     }
 }

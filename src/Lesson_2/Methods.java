@@ -4,7 +4,10 @@ import java.util.Scanner;
 
 public class Methods {
     public static void printThreeWords() {
-//  Выводит в столбец три слова: Orange, Banana, Apple
+/*
+    Задание 1
+    Выводит в столбец три слова: Orange, Banana, Apple
+ */
 
         System.out.println("Orange");
         System.out.println("Banana");
@@ -13,6 +16,7 @@ public class Methods {
 
     public static void checkSumSign() {
 /*
+    Задание 2
     Метод суммирует 2 переменные,
     если их сумма больше или равна 0,
     то выводит в консоль сообщение “Сумма положительная”,
@@ -33,6 +37,7 @@ public class Methods {
 
     public static void printColor() {
 /*
+    Задание 3
     Если value меньше 0 (0 включительно),
     то в консоль метод должен вывести сообщение “Красный”,
     если лежит в пределах от 0 (0 исключительно)
@@ -54,6 +59,7 @@ public class Methods {
 
     public static void compareNumbers() {
 /*
+    Задание 4
     Если a больше или равно b,
     то в консоль выводится сообщение “a >= b”,
     в противном случае “a < b”
@@ -73,11 +79,24 @@ public class Methods {
 
     public static boolean isSumInRange (int a, int b) {
 /*
+    Задание 5
     метод проверяет, что сумма чисел лежит
     в пределах от 10 до 20 (включительно),
     если да – вернуть true, в противном случае – false.
 */
         int summValue = a + b;
         return summValue >= 10 && summValue <= 20;
+    }
+
+    public static void printNumberSign(int number) {
+/*
+    метод выводит в консоль, положительное ли число передали
+    или отрицательное. Замечание: ноль считаем положительным числом.
+ */
+        if (number >= 0) {
+            System.out.println("Число положительное");
+        } else {
+            System.out.println("Число отрицательное");
+        }
     }
 }
