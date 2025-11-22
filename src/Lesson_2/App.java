@@ -9,6 +9,7 @@ public class App {
 //        printColor();
 //        compareNumbers();
 //        System.out.println(isSumInRange(5, 5));
-        printNumberSign(0);
+//        printNumberSign(0);
+        System.out.println(numberSign(-1));
     }
 }

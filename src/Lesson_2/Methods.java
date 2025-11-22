@@ -90,6 +90,7 @@ public class Methods {
 
     public static void printNumberSign(int number) {
 /*
+    Задание 6
     метод выводит в консоль, положительное ли число передали
     или отрицательное. Замечание: ноль считаем положительным числом.
  */
@@ -98,5 +99,15 @@ public class Methods {
         } else {
             System.out.println("Число отрицательное");
         }
+    }
+
+    public static boolean numberSign(int number) {
+/*
+    Задание 7
+    Метод должен вернуть true, если число отрицательное,
+    и вернуть false если положительное.
+    Замечание: ноль считаем положительным числом.
+ */
+        return number < 0;
     }
 }
