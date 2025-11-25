@@ -21,14 +21,14 @@ public class Product {
     }
 
     public void printInfo() {
-        System.out.print(String.format(
-                "Название: %s\n" +
-                "Дата производства: %tF\n" +
-                "Производитель: %s\n" +
-                "Страна происхождения: %s\n" +
-                "Цена: %.2f\n" +
-                "Состояние бронирования покупателем: ",
-                title, dateOfProduction, producer, country, price));
+        System.out.printf("""
+            Название: %s
+            Дата производства: %tF
+            Производитель: %s
+            Страна происхождения: %s
+            Цена: %.2f
+            Состояние бронирования покупателем:\s""",
+            title, dateOfProduction, producer, country, price);
 
         if (statusOfBooking) System.out.println("Товар забронирован");
         else System.out.println("Брони нет");
