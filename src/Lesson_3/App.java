@@ -1,9 +1,13 @@
 package Lesson_3;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class App {
     public static void main(String[] args) {
+//      Задание 2
+        System.out.println("Задание 2\n");
+
         Product[] products = new Product[] {
                 new Product(
                         "Электрочайник Smeg KLF05CREU",
@@ -50,5 +54,25 @@ public class App {
         for (Product product: products) {
             product.printInfo();
         }
+
+//      Задание 3
+        System.out.println("Задание 3\n");
+
+        Park park = new Park(
+                new Park().new Attraction(
+                        "Молот судьбы",
+                        LocalTime.parse("10:00:00"),
+                        LocalTime.parse("22:00:00"),
+                        2100f
+                ),
+                new Park().new Attraction(
+                        "Гонка будущего",
+                        LocalTime.parse("09:00:00"),
+                        LocalTime.parse("19:00:00"),
+                        3000f
+                )
+        );
+        park.getAttraction1().printInfo();
+        park.getAttraction2().printInfo();
     }
 }

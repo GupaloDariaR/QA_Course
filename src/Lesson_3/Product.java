@@ -1,6 +1,5 @@
 package Lesson_3;
 
-import javax.crypto.spec.PSource;
 import java.time.LocalDate;
 
 public class Product {
@@ -27,7 +26,7 @@ public class Product {
             Дата производства: %tF
             Производитель: %s
             Страна происхождения: %s
-            Цена: %.2f
+            Цена: %.2f руб.
             Состояние бронирования покупателем:\s""",
             title, dateOfProduction, producer, country, price);
 
