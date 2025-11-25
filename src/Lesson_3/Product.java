@@ -1,5 +1,6 @@
 package Lesson_3;
 
+import javax.crypto.spec.PSource;
 import java.time.LocalDate;
 
 public class Product {
@@ -32,5 +33,6 @@ public class Product {
 
         if (statusOfBooking) System.out.println("Товар забронирован");
         else System.out.println("Брони нет");
+        System.out.println();
     }
 }
