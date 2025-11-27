@@ -44,6 +44,10 @@ public abstract class Animal {
         return animalCount;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setMaxRunLength(int maxRunLength) {
         this.maxRunLength = maxRunLength;
     }

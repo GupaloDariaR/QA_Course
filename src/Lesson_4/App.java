@@ -2,6 +2,8 @@ package Lesson_4;
 
 public class App {
     public static void main(String[] args) {
+//      Задание 1 (часть 1)
+        System.out.println("Задание 1 (часть 1)\n");
         Cat cat = new Cat("Мурзик");
         Dog dog = new Dog("Шустрик");
 //      test cat
@@ -22,8 +24,42 @@ public class App {
         System.out.println();
 
 //      print count
+        printAnimalCount();
+
+//      Задание 1 (часть 2)
+        System.out.println("\n\nЗадание 1 (часть 2)\n");
+//      test method cat.eat()
+        Cat[] cats = new Cat[] {
+          new Cat("Барсик"),
+          new Cat("Муся"),
+          new Cat("Вася"),
+          new Cat("Белка"),
+          new Cat("Снежок"),
+        };
+
+        int bowl = 50;
+        for (Cat c: cats) {
+            bowl = c.eat(bowl, 15);
+            System.out.printf("Сытость %s - %b\n",c.getName(), c.getSatiety());
+        }
+
+        System.out.println("\nЕды в миске: " + bowl);
+        bowl = addFoodToBowl(bowl, 100);
+        System.out.println("Еды в миске: " + bowl);
+
+//      print count
+        System.out.println();
+        printAnimalCount();
+    }
+
+    public static void printAnimalCount() {
         System.out.println("Animal count = " + Animal.getAnimalCount());
         System.out.println("Dog count = " + Dog.getDogCount());
         System.out.println("Cat count = " + Cat.getCatCount());
+    }
+
+    public static int addFoodToBowl(int bowl, int countFood) {
+        System.out.println("Добавление еды в миску...");
+        return bowl + countFood;
     }
 }
