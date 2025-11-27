@@ -50,6 +50,17 @@ public class App {
 //      print count
         System.out.println();
         printAnimalCount();
+
+
+//      Задание 2
+        System.out.println("\n\nЗадание 2\n");
+        Circle circle = new Circle(new int[] {1}, "red", "black");
+        Rectangle rectangle = new Rectangle(new int[] {1, 2}, "blue", "black");
+        Triangle triangle = new Triangle(new int[] {6, 8, 10}, "green", "black");
+
+        circle.getInfo();
+        rectangle.getInfo();
+        triangle.getInfo();
     }
 
     public static void printAnimalCount() {
