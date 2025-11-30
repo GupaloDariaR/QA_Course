@@ -7,6 +7,11 @@ public class Rectangle extends Figure{
     }
 
     @Override
+    public double calculatePerimeter(int[] figureParameters) {
+        return 2 * super.calculatePerimeter(figureParameters);
+    }
+
+    @Override
     public double calculateArea() {
         int a = super.getFigureParameters()[0];
         int b = super.getFigureParameters()[1];
