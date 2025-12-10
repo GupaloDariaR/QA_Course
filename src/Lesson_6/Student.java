@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Student {
+
     private String lastName;
     private String firstName;
     private String group;
@@ -14,31 +15,8 @@ public class Student {
         this.lastName = lastName;
         this.firstName = firstName;
         this.group = group;
-
-        if (checkCourse(course))
-            this.course = course;
-
-        if (checkScores(scores))
-            this.scores = scores;
-    }
-
-    private boolean  checkCourse (int course) {
-        if (course > 4 || course < 1)
-            throw new IllegalArgumentException("Задано неверное значение курса: поле course принимает значения от 1 до 4");
-        return true;
-    }
-
-    private boolean checkScores(HashMap<String, Integer> scores) {
-        if (scores.isEmpty())
-            throw new IllegalArgumentException("Задано неверное значение поля scores: не может быть пустым");
-
-        for (Map.Entry<String, Integer> s: scores.entrySet()) {
-            if (s.getValue() < 1 || s.getValue() > 5)
-                throw new IllegalArgumentException("Задано неверное значение поля scores: оценка (value) примимает зачения от 1 до 5");
-            break;
-        }
-
-        return true;
+        this.course = course;
+        this.scores = scores;
     }
 
     public float getAverageScore() {

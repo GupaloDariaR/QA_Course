@@ -9,53 +9,36 @@ public class App {
 //      инициализация
         HashSet<Student> students = new HashSet<>();
 
-        try {
-            students.add(new Student("Иванов", "Иван", "бсбо-10-25", 1,
-                            new HashMap<>(Map.of(
-                                    "Русский язык", 3,
-                                    "Математика", 3,
-                                    "Информатика", 3))
-                    )
-            );
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        students.add(new Student("Иванов", "Иван", "бсбо-10-25", 1,
+                        new HashMap<>(Map.of(
+                                "Русский язык", 3,
+                                "Математика", 3,
+                                "Информатика", 3)
+                        )
+        ));
 
-        try {
-            students.add(new Student("Никитин", "Никита", "бсбо-10-23", 3,
-                            new HashMap<>(Map.of(
-                                    "Русский язык", 3,
-                                    "Математика", 5,
-                                    "Информатика", 4))
-                    )
-            );
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        students.add(new Student("Никитин", "Никита", "бсбо-10-23", 3,
+                        new HashMap<>(Map.of(
+                                "Русский язык", 3,
+                                "Математика", 5,
+                                "Информатика", 4)
+                        )
+        ));
 
-        try {
-            students.add(new Student("Петров", "Петр", "бсбо-10-22", 4,
-                            new HashMap<>(Map.of(
-                                    "Русский язык", 5,
-                                    "Математика", 5,
-                                    "Информатика", 5))
-                    )
-            );
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        students.add(new Student("Петров", "Петр", "бсбо-10-22", 4,
+                        new HashMap<>(Map.of(
+                                "Русский язык", 5,
+                                "Математика", 5,
+                                "Информатика", 5)
+                        )
+        ));
 
-        try {
-            students.add(new Student("Васечкин", "Василий", "бсбо-10-24", 2,
-                            new HashMap<>(Map.of(
-                                    "Русский язык", 2,
-                                    "Математика", 3,
-                                    "Информатика", 3))
-                    )
-            );
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        students.add(new Student("Васечкин", "Василий", "бсбо-10-24", 2,
+                        new HashMap<>(Map.of(
+                                "Русский язык", 2,
+                                "Математика", 3,
+                                "Информатика", 3))
+        ));
 
 //      удаление студента со средним баллом < 3
         removeStudent(students);
