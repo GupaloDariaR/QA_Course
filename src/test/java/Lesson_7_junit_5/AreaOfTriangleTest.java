@@ -17,7 +17,7 @@ public class AreaOfTriangleTest {
     }
 
     @DisplayName("Выброс исключения IllegalArgumentException " +
-            "при значении стороны и/или высоты равном 0")
+            "при неположительном значении стороны и/или высоты")
     @ParameterizedTest
     @CsvSource({"0, 6", "5, -1", "0, 0", "-5, -6"})
     public void getIllegalArgumentExceptionInAreaOfTriangleTest(int side, int heightToSide) {
