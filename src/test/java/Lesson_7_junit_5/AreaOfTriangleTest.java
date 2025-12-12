@@ -1,6 +1,7 @@
 package test.java.Lesson_7_junit_5;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -10,10 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AreaOfTriangleTest {
 
     @DisplayName("Площадь треугольника")
-    @ParameterizedTest
-    @CsvSource({"5, 6"})
-    public void getAreaOfTriangleTest(int side, int heightToSide) {
-        assertEquals(15, getAreaOfTriangle(side, heightToSide));
+    @Test
+    public void getAreaOfTriangleTest() {
+        assertEquals(15, getAreaOfTriangle(5, 6));
     }
 
     @DisplayName("Выброс исключения IllegalArgumentException " +
