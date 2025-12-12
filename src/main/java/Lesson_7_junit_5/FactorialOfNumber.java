@@ -3,7 +3,6 @@ package main.java.Lesson_7_junit_5;
 public class FactorialOfNumber {
 
     public static long getFactorialOfNumber(int number) throws IllegalArgumentException{
-
         if (number < 0) {
             throw new IllegalArgumentException("Факториал отрицателного числа не определен");
         }
