@@ -20,8 +20,8 @@ public class AreaOfTriangleTest {
             "при неположительном значении стороны и/или высоты")
     @ParameterizedTest
     @CsvSource({"0, 6", "5, -1", "0, 0", "-5, -6"})
-    public void getIllegalArgumentExceptionInAreaOfTriangleTest(int side, int heightToSide) {
-        Exception e = assertThrows(IllegalArgumentException.class,
+    public void illegalArgumentExceptionInGetAreaOfTriangleTest(int side, int heightToSide) {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
                 () -> getAreaOfTriangle(side, heightToSide));
         assertTrue(e.getMessage().contains("Сторона и высота должны " +
                 "принимать целые положительные значения"));

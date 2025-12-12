@@ -2,8 +2,6 @@ package test.java.Lesson_7_junit_5;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 import static main.java.Lesson_7_junit_5.ArithmeticOperations.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,7 +48,7 @@ public class ArithmeticOperationsTest {
     @DisplayName("Деление на ноль")
     @Test
     public void arithmeticExceptionInDivision() {
-        Exception e = assertThrows(ArithmeticException.class,
+        ArithmeticException e = assertThrows(ArithmeticException.class,
                 () -> division(1, 0));
         assertTrue(e.getMessage().contains("Деление на ноль"));
     }
