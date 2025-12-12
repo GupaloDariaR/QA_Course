@@ -9,4 +9,6 @@ public class AreaOfTriangle {
 
         return 0.5 * side * heightToSide;
     }
+
+
 }
