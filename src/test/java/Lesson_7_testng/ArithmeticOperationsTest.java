@@ -37,7 +37,8 @@ public class ArithmeticOperationsTest {
 
     @Test(
             testName = "Деление на ноль",
-            expectedExceptions = ArithmeticException.class
+            expectedExceptions = ArithmeticException.class,
+            expectedExceptionsMessageRegExp = "Деление на ноль"
     )
     public void arithmeticExceptionInDivision() {
         division(1,0);

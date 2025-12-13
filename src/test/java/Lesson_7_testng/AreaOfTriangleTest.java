@@ -15,9 +15,11 @@ public class AreaOfTriangleTest {
 
     @Test(
             testName = "Выброс исключения IllegalArgumentException " +
-            "при неположительном значении стороны и/или высоты",
+                    "при неположительном значении стороны и/или высоты",
             dataProvider = "areaOfTriangleData",
-            expectedExceptions = IllegalArgumentException.class
+            expectedExceptions = IllegalArgumentException.class,
+            expectedExceptionsMessageRegExp = "Сторона и высота должны " +
+                    "принимать целые положительные значения"
     )
     public void illegalArgumentExceptionInGetAreaOfTriangleTest(int side, int heightToSide) {
         getAreaOfTriangle(side, heightToSide);
