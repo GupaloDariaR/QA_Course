@@ -1,19 +1,42 @@
 package test.java.Lesson_8;
 
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.expect;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class RequestMethodsTest {
 
-    @Test
-    public void getRequestTest() {
-        given()
+    private RequestSpecification baseRequestSpec;
+    private RequestSpecification textRequestSpec;
+    private ResponseSpecification textResponseSpec;
+    private final String textData = "This is expected to be sent back as part of response body.";
+
+    @BeforeEach
+    public void setUp() {
+        baseRequestSpec = given()
+                .baseUri("https://postman-echo.com")
+                .log().all();
+
+        textRequestSpec = given()
                 .baseUri("https://postman-echo.com")
                 .log().all()
+                .contentType(ContentType.TEXT);
+
+        textResponseSpec = expect()
+                .statusCode(HttpStatus.SC_OK)
+                .body("data", equalTo(textData));
+    }
+
+    @Test
+    public void getRequestTest() {
+        baseRequestSpec
                 .queryParam("foo1", "bar1")
                 .queryParam("foo2", "bar2")
         .when()
@@ -29,10 +52,7 @@ public class RequestMethodsTest {
     public void postRawTextTest() {
         String data = "{\"test\": \"value\"}";
 
-        given()
-                .baseUri("https://postman-echo.com")
-                .log().all()
-                .contentType(ContentType.TEXT)
+        textRequestSpec
                 .body(data)
         .when()
                 .post("/post")
@@ -44,9 +64,7 @@ public class RequestMethodsTest {
 
     @Test
     public void postFormDataTest() {
-        given()
-                .baseUri("https://postman-echo.com")
-                .log().all()
+        baseRequestSpec
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")
                 .formParam("foo1", "bar1")
                 .formParam("foo2", "bar2")
@@ -61,49 +79,37 @@ public class RequestMethodsTest {
 
     @Test
     public void putRequestTest() {
-        String data = "This is expected to be sent back as part of response body.";
-        given()
-                .baseUri("https://postman-echo.com")
-                .log().all()
-                .contentType(ContentType.TEXT)
-                .body(data)
+        textRequestSpec
+                .body(textData)
+                .expect()
+                .spec(textResponseSpec)
         .when()
                 .put("/put")
         .then()
-                .log().body()
-                .statusCode(HttpStatus.SC_OK)
-                .body("data", equalTo(data));
+                .log().body();
     }
 
     @Test
     public void patchRequestTest() {
-        String data = "This is expected to be sent back as part of response body.";
-        given()
-                .baseUri("https://postman-echo.com")
-                .log().all()
-                .contentType(ContentType.TEXT)
-                .body(data)
+        textRequestSpec
+                .body(textData)
+                .expect()
+                .spec(textResponseSpec)
         .when()
                 .patch("/patch")
         .then()
-                .log().body()
-                .statusCode(HttpStatus.SC_OK)
-                .body("data", equalTo(data));
+                .log().body();
     }
 
     @Test
     public void deleteRequestTest() {
-        String data = "This is expected to be sent back as part of response body.";
-        given()
-                .baseUri("https://postman-echo.com")
-                .log().all()
-                .contentType(ContentType.TEXT)
-                .body(data)
+        textRequestSpec
+                .body(textData)
+                .expect()
+                .spec(textResponseSpec)
         .when()
                 .delete("/delete")
         .then()
-                .log().body()
-                .statusCode(HttpStatus.SC_OK)
-                .body("data", equalTo(data));
+                .log().body();
     }
 }
