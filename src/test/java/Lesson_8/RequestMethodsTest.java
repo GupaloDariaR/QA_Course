@@ -1,17 +1,11 @@
 package test.java.Lesson_8;
 
 import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
 
 public class RequestMethodsTest {
 
@@ -65,5 +59,51 @@ public class RequestMethodsTest {
                 .body("form.foo2", equalTo("bar2"));
     }
 
+    @Test
+    public void putRequestTest() {
+        String data = "This is expected to be sent back as part of response body.";
+        given()
+                .baseUri("https://postman-echo.com")
+                .log().all()
+                .contentType(ContentType.TEXT)
+                .body(data)
+        .when()
+                .put("/put")
+        .then()
+                .log().body()
+                .statusCode(HttpStatus.SC_OK)
+                .body("data", equalTo(data));
+    }
 
+    @Test
+    public void patchRequestTest() {
+        String data = "This is expected to be sent back as part of response body.";
+        given()
+                .baseUri("https://postman-echo.com")
+                .log().all()
+                .contentType(ContentType.TEXT)
+                .body(data)
+        .when()
+                .patch("/patch")
+        .then()
+                .log().body()
+                .statusCode(HttpStatus.SC_OK)
+                .body("data", equalTo(data));
+    }
+
+    @Test
+    public void deleteRequestTest() {
+        String data = "This is expected to be sent back as part of response body.";
+        given()
+                .baseUri("https://postman-echo.com")
+                .log().all()
+                .contentType(ContentType.TEXT)
+                .body(data)
+        .when()
+                .delete("/delete")
+        .then()
+                .log().body()
+                .statusCode(HttpStatus.SC_OK)
+                .body("data", equalTo(data));
+    }
 }
