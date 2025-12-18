@@ -134,12 +134,12 @@ public class OnlineReplenishmentBlockTest {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         assertAll(
-                () -> assertTrue(driver.findElement(By.xpath("//div[@class='bepaid-app']")).isDisplayed()),
+                () -> assertTrue(driver.findElement(By.xpath("//app-payment-container")).isDisplayed()),
                 () -> assertTrue(driver.findElement(
-                        By.xpath("//div[@class='bepaid-app']//span[contains(text(), 'Номер')]"))
+                        By.xpath("//app-root//span[contains(text(), 'Номер')]"))
                         .getText().contains(phone)),
                 () -> assertTrue(driver.findElement(
-                        By.xpath("//div[@class='bepaid-app']//span[@class='ng-star-inserted']"))
+                        By.xpath("//app-root//span[@class='ng-star-inserted']"))
                         .getText().contains(sum))
         );
     }
