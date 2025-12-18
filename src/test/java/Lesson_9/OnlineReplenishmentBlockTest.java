@@ -1,19 +1,19 @@
 package test.java.Lesson_9;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OnlineReplenishmentBlockTest {
@@ -30,6 +30,9 @@ public class OnlineReplenishmentBlockTest {
         driver = new ChromeDriver();
         driver.get("https://www.mts.by/");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+//      закрываем окно "Обработка файлов cookie"
+        driver.findElement(By.xpath("//button[@id='cookie-agree']")).click();
     }
 
     @AfterEach
@@ -91,12 +94,53 @@ public class OnlineReplenishmentBlockTest {
 //    Проверить работу ссылки «Подробнее о сервисе»;
     @Test
     public void linkWorksTest() {
+        WebElement link = driver.findElement(By.xpath("//div[@class='pay__wrapper']//a"));
+
+        given().
+                baseUri("https://www.mts.by/")
+                .log().all()
+        .when()
+                .get(link.getAttribute("href"))
+        .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body("html.head.title", equalTo("Порядок оплаты и безопасность интернет платежей"));
     }
 
 //    Заполнить поля и проверить работу кнопки «Продолжить»
 //    (проверяем только вариант «Услуги связи», номер для теста 297777777)
-//    @Test
-//    public void buttonWorksTest() {
-//
-//    }
+    @Test
+    public void buttonWorksTest() {
+        String phone = "297777777";
+        String sum = "10";
+
+        WebElement phoneInputField = driver.findElement(By.xpath("//input[@id='connection-phone']"));
+        WebElement sumInputField = driver.findElement(By.xpath("//input[@id='connection-sum']"));
+        WebElement button = driver.findElement(By.xpath("//form[@id='pay-connection']//button"));
+
+        phoneInputField.click();
+        phoneInputField.sendKeys(phone);
+
+        sumInputField.click();
+        sumInputField.sendKeys(sum);
+
+        button.click();
+
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.presenceOfElementLocated(
+                        By.xpath("//iframe[@src='https://checkout.bepaid.by/widget_v2/index.html']")));
+
+        WebElement iframe = driver.findElement(By.xpath("//iframe[@src='https://checkout.bepaid.by/widget_v2/index.html']"));
+        driver.switchTo().frame(iframe);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+        assertAll(
+                () -> assertTrue(driver.findElement(By.xpath("//div[@class='bepaid-app']")).isDisplayed()),
+                () -> assertTrue(driver.findElement(
+                        By.xpath("//div[@class='bepaid-app']//span[contains(text(), 'Номер')]"))
+                        .getText().contains(phone)),
+                () -> assertTrue(driver.findElement(
+                        By.xpath("//div[@class='bepaid-app']//span[@class='ng-star-inserted']"))
+                        .getText().contains(sum))
+        );
+    }
 }
