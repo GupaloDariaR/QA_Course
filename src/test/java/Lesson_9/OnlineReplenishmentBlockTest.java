@@ -3,6 +3,8 @@ package test.java.Lesson_9;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -51,44 +53,21 @@ public class OnlineReplenishmentBlockTest {
     }
 
 //    Проверить наличие логотипов платёжных систем;
-    @Test
-    public void presenceOfPaymentSystemLogosTest() {
-       WebElement imgVisa = driver.findElement(
-               By.xpath("//div[@class='pay__partners']//img[@alt='Visa']"));
-       WebElement imgVerifiedByVisa = driver.findElement(
-               By.xpath("//div[@class='pay__partners']//img[@alt='Verified By Visa']"));
-       WebElement imgMasterCard = driver.findElement(
-               By.xpath("//div[@class='pay__partners']//img[@alt='MasterCard']"));
-       WebElement imgMasterCardSecureCode = driver.findElement(
-               By.xpath("//div[@class='pay__partners']//img[@alt='MasterCard Secure Code']"));
-       WebElement imgBelcard = driver.findElement(
-               By.xpath("//div[@class='pay__partners']//img[@alt='Белкарт']"));
-
-       String notDisplayedMessage = "Логотип не отображается";
-       String nullMessage = "Отсутствует атрибут src";
-       String emptyMessage = "Атрибут src пуст";
-
-       assertAll(
-               () -> assertTrue(imgVisa.isDisplayed(), notDisplayedMessage),
-               () -> assertNotNull(imgVisa.getAttribute("src"), nullMessage),
-               () -> assertFalse(imgVisa.getAttribute("src").isEmpty(), emptyMessage),
-
-               () -> assertTrue(imgVerifiedByVisa.isDisplayed(), notDisplayedMessage),
-               () -> assertNotNull(imgVerifiedByVisa.getAttribute("src"), nullMessage),
-               () -> assertFalse(imgVerifiedByVisa.getAttribute("src").isEmpty(), emptyMessage),
-
-               () -> assertTrue(imgMasterCard.isDisplayed(), notDisplayedMessage),
-               () -> assertNotNull(imgMasterCard.getAttribute("src"), nullMessage),
-               () -> assertFalse(imgMasterCard.getAttribute("src").isEmpty(), emptyMessage),
-
-               () -> assertTrue(imgMasterCardSecureCode.isDisplayed(), notDisplayedMessage),
-               () -> assertNotNull(imgMasterCardSecureCode.getAttribute("src"), nullMessage),
-               () -> assertFalse(imgMasterCardSecureCode.getAttribute("src").isEmpty(), emptyMessage),
-
-               () -> assertTrue(imgBelcard.isDisplayed(), notDisplayedMessage),
-               () -> assertNotNull(imgBelcard.getAttribute("src"), nullMessage),
-               () -> assertFalse(imgBelcard.getAttribute("src").isEmpty(), emptyMessage)
-       );
+    @ParameterizedTest
+    @CsvSource({
+            "Visa",
+            "Verified By Visa",
+            "MasterCard",
+            "MasterCard Secure Code",
+            "Белкарт"
+    })
+    public void presenceOfPaymentSystemLogosTest(String logoAlt) {
+        WebElement logo = driver.findElement(By.xpath("//div[@class='pay__partners']//img[@alt='" + logoAlt + "']"));
+        assertAll(
+                () -> assertTrue(logo.isDisplayed(), "Логотип не отображается"),
+                () -> assertNotNull(logo.getAttribute("src"), "Отсутствует атрибут src"),
+                () -> assertFalse(logo.getAttribute("src").isEmpty(), "Атрибут src пуст")
+        );
     }
 
 //    Проверить работу ссылки «Подробнее о сервисе»;
