@@ -94,13 +94,13 @@ public class OnlineReplenishmentBlockTest {
 //    Проверить работу ссылки «Подробнее о сервисе»;
     @Test
     public void linkWorksTest() {
-        WebElement link = driver.findElement(By.xpath("//div[@class='pay__wrapper']//a"));
+        String link = driver.findElement(By.xpath("//div[@class='pay__wrapper']//a")).getAttribute("href");
 
         given().
                 baseUri("https://www.mts.by/")
                 .log().all()
         .when()
-                .get(link.getAttribute("href"))
+                .get(link)
         .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body("html.head.title", equalTo("Порядок оплаты и безопасность интернет платежей"));
