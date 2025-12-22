@@ -1,6 +1,7 @@
 package test.java.Lesson_10;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,7 +21,7 @@ public class OnlineReplenishmentBlock {
     public OnlineReplenishmentBlock(WebDriver driver) {
         this.driver = driver;
         if (!getBlockTitle().equals("Онлайн пополнение без комиссии"))
-            throw new IllegalStateException("Эта страница не содержит блок онлайн пополнения");
+            throw new IllegalStateException("Эта страница не содержит блок \"Онлайн пополнение без комиссии\"");
     }
 
     public void acceptCookie() {
@@ -63,5 +64,27 @@ public class OnlineReplenishmentBlock {
         typePhone(phone);
         typeSum(sum);
         return submitOnlineReplenishment();
+    }
+
+    public String getPlaceholderOfPhoneOrScoreField(String formId) {
+        WebElement field;
+        try {
+            field = driver.findElement(By.xpath("//input[@id='" + formId + "-phone']"));
+        } catch (NoSuchElementException e) {
+            field = driver.findElement(By.xpath("//input[@id='score-" + formId + "']"));
+        }
+        return field.getAttribute("placeholder");
+    }
+
+    public String getPlaceholderOfSumField(String formId) {
+        WebElement field;
+        field = driver.findElement(By.xpath("//input[@id='" + formId + "-sum']"));
+        return field.getAttribute("placeholder");
+    }
+
+    public String getPlaceholderOfEmailField(String formId) {
+        WebElement field;
+        field = driver.findElement(By.xpath("//input[@id='" + formId + "-email']"));
+        return field.getAttribute("placeholder");
     }
 }

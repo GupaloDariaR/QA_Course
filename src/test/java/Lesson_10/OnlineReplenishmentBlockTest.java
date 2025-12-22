@@ -3,12 +3,16 @@ package test.java.Lesson_10;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.given;
@@ -40,7 +44,7 @@ public class OnlineReplenishmentBlockTest {
         driver.quit();
     }
 
-    //    Проверить название указанного блока;
+//    Проверить название указанного блока;
     @Test
     public void blockTitleTest() {
         String expectedBlockTitle = "Онлайн пополнение без комиссии";
@@ -48,7 +52,7 @@ public class OnlineReplenishmentBlockTest {
         assertEquals(expectedBlockTitle, actualBlockTitle);
     }
 
-    //    Проверить наличие логотипов платёжных систем;
+//    Проверить наличие логотипов платёжных систем;
     @ParameterizedTest
     @CsvSource({
             "Visa",
@@ -66,7 +70,7 @@ public class OnlineReplenishmentBlockTest {
         );
     }
 
-    //    Проверить работу ссылки «Подробнее о сервисе»;
+//    Проверить работу ссылки «Подробнее о сервисе»;
     @Test
     public void linkWorksTest() {
         String link = onlineReplenishmentBlock.getLinksAttributeHref();
@@ -82,12 +86,84 @@ public class OnlineReplenishmentBlockTest {
     }
 
 //    Заполнить поля и проверить работу кнопки «Продолжить»
-//    (проверяем только вариант «Услуги связи», номер для теста 297777777)
-    @Test
-    public void buttonWorksTest() {
-        String phone = "297777777";
-        String sum = "10";
-
+    @ParameterizedTest
+    @CsvSource({"297777777, 10"})
+    public void buttonWorksTest(String phone, String sum) {
         assertTrue(onlineReplenishmentBlock.onlineReplenishmentOn(phone, sum).isTitleExists());
     }
+
+//    Проверить надписи в незаполненных полях каждого варианта оплаты услуг:
+//    услуги связи, домашний интернет, рассрочка, задолженность
+    @ParameterizedTest
+    @CsvSource({
+            "connection, Номер телефона",
+            "internet, Номер абонента",
+            "instalment, Номер счета на 44",
+            "arrears, Номер счета на 2073 "
+    })
+    public void presenceOfPlaceholdersTest(String formId, String phoneOrScorePlaceholder) {
+        assertAll(
+                () -> assertEquals(phoneOrScorePlaceholder,
+                        onlineReplenishmentBlock.getPlaceholderOfPhoneOrScoreField(formId)),
+                () -> assertEquals("Сумма",
+                        onlineReplenishmentBlock.getPlaceholderOfSumField(formId)),
+                () -> assertEquals("E-mail для отправки чека",
+                        onlineReplenishmentBlock.getPlaceholderOfEmailField(formId))
+        );
+    }
+
+//    Проверить корректность отображения суммы (в том числе на кнопке) в окне оплаты
+    @ParameterizedTest
+    @CsvSource({"297777777, 10"})
+    public void presenceOfSum(String phone, String sum) {
+        PayPage payPage = onlineReplenishmentBlock.onlineReplenishmentOn(phone, sum);
+        List<String> listOfText = payPage.getTextFromSumElements();
+        assertAll(
+                () -> assertTrue(listOfText.get(0).contains(sum)),
+                () -> assertTrue(listOfText.get(1).contains(sum)),
+                () -> assertTrue(listOfText.get(2).contains(sum))
+        );
+    }
+
+//    Проверить корректность отображения номера телефона в окне оплаты
+    @ParameterizedTest
+    @CsvSource({"297777777, 10"})
+    public void presenceOfPhone(String phone, String sum) {
+        PayPage payPage = onlineReplenishmentBlock.onlineReplenishmentOn(phone, sum);
+        String text = payPage.getTextFromPhoneElement();
+        assertTrue(text.contains(phone));
+    }
+
+//    Проверить корректность отображения надписей в незаполненных полях для ввода реквизитов карты в окне оплаты
+    @ParameterizedTest
+    @CsvSource({"297777777, 10"})
+    public void presenceOfPlaceholdersInPayPageTest (String phone, String sum) {
+        PayPage payPage = onlineReplenishmentBlock.onlineReplenishmentOn(phone, sum);
+        String labelOfCardNumberField = payPage.getLabelOfCardNumberField();
+        String labelOfValidityPeriodField = payPage.getLabelOfValidityPeriodField();
+        String labelOfCvcField = payPage.getLabelOfCvcField();
+        String labelOfNameField = payPage.getLabelOfNameField();
+
+        assertAll(
+                () -> assertEquals("Номер карты", labelOfCardNumberField),
+                () -> assertEquals("Срок действия", labelOfValidityPeriodField),
+                () -> assertEquals("CVC", labelOfCvcField),
+                () -> assertEquals("Имя и фамилия на карте", labelOfNameField)
+        );
+    }
+
+//    Проверить наличие иконок платёжных систем в окне оплаты
+    @ParameterizedTest
+    @CsvSource({"297777777, 10"})
+    public void presenceOfIconsOfPaymentSystemTest(String phone, String sum) {
+        PayPage payPage = onlineReplenishmentBlock.onlineReplenishmentOn(phone, sum);
+        List<WebElement> icons = payPage.getiIconsOfPaymentSystem();
+        Collection<Executable> executables = new ArrayList<>();
+        for (WebElement icon: icons) {
+            executables.add(() -> assertNotNull(icon.getAttribute("src"), "Отсутствует атрибут src"));
+            executables.add(() -> assertFalse(icon.getAttribute("src").isEmpty(), "Атрибут src пуст"));
+        }
+        assertAll(executables);
+    }
+
 }
