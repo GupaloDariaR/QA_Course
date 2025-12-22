@@ -105,5 +105,4 @@ public class PayPage {
                 """));
         return (List<WebElement>) text;
     }
-
 }

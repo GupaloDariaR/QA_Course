@@ -165,5 +165,4 @@ public class OnlineReplenishmentBlockTest {
         }
         assertAll(executables);
     }
-
 }
